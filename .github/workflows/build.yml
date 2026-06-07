@@ -30,6 +30,14 @@ on:
           - bundle
           - simulator
           - both
+      deploy_action:
+        description: 'Deployment action'
+        required: false
+        default: 'build-only'
+        type: choice
+        options:
+          - build-only
+          - build-deploy
 
       build_id:
         description: 'Internal build ID'
@@ -63,6 +71,7 @@ jobs:
       platform: ${{ github.event.inputs.platform }}
       android_type: ${{ github.event.inputs.android_type }}
       ios_type: ${{ github.event.inputs.ios_type }}
+      deploy_action: ${{ github.event.inputs.deploy_action }}
       node_version: ${{ github.event.inputs.node_version }}
       java_version: ${{ github.event.inputs.java_version }}
       ruby_version: ${{ github.event.inputs.ruby_version }}
