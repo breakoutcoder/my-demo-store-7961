@@ -1,0 +1,28 @@
+name: OTA Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      ota_update_id:
+        description: 'OTA Update ID (from AppNatively D1)'
+        required: true
+        type: string
+      api_url:
+        description: 'AppNatively backend URL'
+        required: true
+        type: string
+      platform:
+        description: 'Target platform: ios | android'
+        required: true
+        type: string
+
+jobs:
+  mobile-ota:
+    name: Mobile OTA
+    uses: appnatively/workflows/.github/workflows/ota-publish.yml@master
+    secrets:
+      BUILD_ACCESS_TOKEN: ${{ secrets.BUILD_ACCESS_TOKEN }}
+    with:
+      ota_update_id: ${{ github.event.inputs.ota_update_id }}
+      api_url: ${{ github.event.inputs.api_url }}
+      platform: ${{ github.event.inputs.platform }}
